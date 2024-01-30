@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Günlük İngilizce Kelimeler</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #wordList {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .deleteButton {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Günlük İngilizce Kelimeler</h1>
+
+    <form id="wordForm">
+        <input type="text" id="newWordInput" placeholder="Yeni kelime ekleyin" required>
+        <button type="button" onclick="addWord()">Ekle</button>
+    </form>
+
+    <ul id="wordList"></ul>
+
+    <script>
+        var words = [];
+
+        function addWord() {
+            var newWord = document.getElementById("newWordInput").value.trim();
+            if (newWord !== "") {
+                words.push(newWord);
+                updateWordList();
+                document.getElementById("newWordInput").value = "";
+            }
+        }
+
+        function deleteWord(index) {
+            words.splice(index, 1);
+            updateWordList();
+        }
+
+        function updateWordList() {
+            var wordList = document.getElementById("wordList");
+            wordList.innerHTML = "";
+            words.forEach(function (word, index) {
+                var listItem = document.createElement("li");
+                listItem.appendChild(document.createTextNode(word));
+
+                var deleteButton = document.createElement("button");
+                deleteButton.appendChild(document.createTextNode("Sil"));
+                deleteButton.classList.add("deleteButton");
+                deleteButton.addEventListener("click", function () {
+                    deleteWord(index);
+                });
+
+                listItem.appendChild(deleteButton);
+                wordList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
